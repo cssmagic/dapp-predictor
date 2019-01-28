@@ -1,0 +1,75 @@
+@import "./vendor/normalize.styl"
+@import "~cmui-zero/src/zero.styl"
+@import "~cmui/src/css/theme/baixing/index.styl"
+
+@import "./component/var.styl"
+@import "./component/icon.styl"
+@import "./component/info-box.styl"
+
+// layout
+body
+	margin 0 auto
+	max-width 640px
+	background-color $cm-color-stage
+
+	> article
+		> main
+			padding 0 $cm-content-padding
+			margin-top 30px
+
+a
+	text-decoration none
+	/html.no-touch &:hover
+	.cm-msg-box &
+		text-decoration underline
+
+body > article > main
+	> header
+		clearfix()
+		margin-bottom 10px
+		font-size $cm-font-size-xl
+		h1, h2, h3
+			float left
+		.action
+			float right
+			margin-top 4px
+			font-size $cm-font-size
+
+.cm-list
+.cm-info-box
+.cm-section-content
+.cm-text
+main > .content
+	+ .action
+		margin-top 20px
+
+.user-box
+	margin-bottom 30px
+
+.action
+	> hr
+		margin 1.5em 0 1em
+		color #ddd
+
+// cmui patch
+.cm-dialog
+	.cm-dialog-header
+		margin 15px
+		color $cm-color-fg-x-light
+	.cm-dialog-content
+		color $cm-color-fg-light
+	footer.cm-btn-line
+		padding 15px
+		padding-top 20px
+
+
+// dialog
+.cm-dialog
+	width 300px
+	@media screen and (min-width: 480px)
+		width 400px
+
+#env-prompt-mobile
+#confirm-mobile-tx
+	.cm-dialog-close-btn
+		display none

@@ -9,6 +9,9 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "cmui": "^2.1.0",
+    "cmui-brush": "^0.1.1",
+    "cmui-zero": "^0.1.2",
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",

@@ -1,9 +1,9 @@
 <template>
 <nav>
 	<ul>
-		<li><router-link to="/">所有预言</router-link></li>
-		<li><router-link to="/mine">我的预言</router-link></li>
-		<li><router-link to="/help">功能介绍</router-link></li>
+		<li :class="{ current: ifCurrentViewMatchTab('all') }"><router-link to="/">所有预言</router-link></li>
+		<li :class="{ current: ifCurrentViewMatchTab('mine') }"><router-link to="/mine">我的预言</router-link></li>
+		<li :class="{ current: ifCurrentViewMatchTab('help') }"><router-link to="/help">功能介绍</router-link></li>
 	</ul>
 </nav>
 </template>
@@ -13,7 +13,21 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class GlobalNav extends Vue {
-
+	ifCurrentViewMatchTab(tabName: string): boolean {
+		// TODO 看这一段配置信息能不能挪到 router 配置里去
+		const mapFromViewToTab = {
+			detail: 'all',
+			publish: 'mine',
+			agreement: 'mine',
+		}
+		const currentRouteName = this.$route.name
+		if (currentRouteName === tabName) {
+			return true
+		} else {
+			const belongedTabName = mapFromViewToTab[currentRouteName]
+			return belongedTabName === tabName
+		}
+	}
 }
 </script>
 

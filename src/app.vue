@@ -11,10 +11,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import GlobalHeader from './components/global-header.vue'
-import GuestTip from './components/guest-tip.vue'
-import GlobalNav from './components/global-nav.vue'
-import GlobalFooter from './components/global-footer.vue'
+import GlobalHeader from './component/global-header.vue'
+import GuestTip from './component/guest-tip.vue'
+import GlobalNav from './component/global-nav.vue'
+import GlobalFooter from './component/global-footer.vue'
 
 @Component({
 	components: {
@@ -25,14 +25,6 @@ import GlobalFooter from './components/global-footer.vue'
 	},
 })
 export default class App extends Vue {
-	computed: {
-		test: () => {
-			return
-		}
-	}
-	created() {
-
-	}
 }
 </script>
 

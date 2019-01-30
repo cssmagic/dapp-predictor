@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import All from './views/all.vue'
+import All from './view/all.vue'
 
 Vue.use(Router)
 
@@ -18,25 +18,25 @@ export default new Router({
 			// 我的预言	#/mine
 			path: '/mine',
 			name: 'mine',
-			component: () => import(/* webpackChunkName: "mine" */ './views/mine.vue'),
+			component: () => import(/* webpackChunkName: "mine" */ './view/mine.vue'),
 		},
 		{
 			// 功能介绍	#/help
 			path: '/help',
 			name: 'help',
-			component: () => import(/* webpackChunkName: "help" */ './views/help.vue'),
+			component: () => import(/* webpackChunkName: "help" */ './view/help.vue'),
 		},
 		{
 			// 发布预言	#/publish
 			path: '/publish',
 			name: 'publish',
-			component: () => import(/* webpackChunkName: "publish" */ './views/publish.vue'),
+			component: () => import(/* webpackChunkName: "publish" */ './view/publish.vue'),
 		},
 		{
 			// 用户协议	#/agreement
 			path: '/agreement',
 			name: 'agreement',
-			component: () => import(/* webpackChunkName: "agreement" */ './views/agreement.vue'),
+			component: () => import(/* webpackChunkName: "agreement" */ './view/agreement.vue'),
 		},
 	],
 })

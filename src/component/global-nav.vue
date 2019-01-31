@@ -15,12 +15,12 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class GlobalNav extends Vue {
 	ifCurrentViewMatchTab(tabName: string): boolean {
 		// TODO 看这一段配置信息能不能挪到 router 配置里去
-		const mapFromViewToTab = {
+		const mapFromViewToTab: any = {
 			detail: 'all',
 			publish: 'mine',
 			agreement: 'mine',
 		}
-		const currentRouteName = this.$route.name
+		const currentRouteName = <string>this.$route.name
 		if (currentRouteName === tabName) {
 			return true
 		} else {

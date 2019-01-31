@@ -17,6 +17,16 @@ body
 			padding 0 $cm-content-padding
 			margin-top 30px
 			min-height 200px
+			> header
+				clearfix()
+				margin-bottom 10px
+				font-size $cm-font-size-xl
+				h1, h2, h3
+					float left
+				.action
+					float right
+					margin-top 4px
+					font-size $cm-font-size
 
 a
 	text-decoration none
@@ -24,17 +34,6 @@ a
 	.cm-msg-box &
 		text-decoration underline
 
-body > article > main
-	> header
-		clearfix()
-		margin-bottom 10px
-		font-size $cm-font-size-xl
-		h1, h2, h3
-			float left
-		.action
-			float right
-			margin-top 4px
-			font-size $cm-font-size
 
 .cm-list
 .cm-info-box

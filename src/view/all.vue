@@ -1,62 +1,118 @@
 <template>
-<main id="loading" data-nav="all">
-	<template v-if="true">
-	<div class="loading-box cm-info-box">
-		<div class="content">
-			<i class="cm-icon cm-icon-x30-loading-black"></i>
-			<p>正在努力加载……</p>
-		</div>
-	</div>
-	</template>
-	<template v-else>
-	<header>
-		<h1>大家已发 <span class="total">-</span> 条预言</h1>
-		<div class="action sort-box time">
-			<a class="time" href="#sort" data-action>时间排序</a>
-			<span class="splitter">|</span>
-			<a class="like" href="#sort" data-action>热度排序</a>
-		</div>
-	</header>
-	<div class="content">
-		<ul class="cm-list prediction-list time">
-			<!-- msg-list-item -->
-			<!-- msg-list-item -->
-			<!-- msg-list-item -->
-			<li class="more">
-				<div class="loading-box">
-					<div class="content">
-						<i class="cm-icon cm-icon-x30-loading-black"></i>
-						<p>正在努力加载……</p>
-					</div>
+	<main>
+		<template v-if="!isReady">
+			<loading-box />
+		</template>
+		<template v-else>
+			<header>
+				<h1>大家已发 <span class="total">{{ total }}</span> 条预言</h1>
+				<div class="action sort-box" :class="sortType">
+					<a class="time" href="#" @click.prevent="sortBy('time')">时间排序</a>
+					<span class="splitter">|</span>
+					<a class="like" href="#" @click.prevent="sortBy('like')">热度排序</a>
 				</div>
-				<div class="action">
-					<a href="#load-more" data-action>加载更多</a>
-				</div>
-			</li>
-		</ul>
-		<ul class="cm-list prediction-list like">
-			<!-- msg-list-item -->
-			<!-- msg-list-item -->
-			<!-- msg-list-item -->
-			<li class="more">
-				<div class="loading-box">
-					<div class="content">
-						<i class="cm-icon cm-icon-x30-loading-black"></i>
-						<p>正在努力加载……</p>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</div>
-	<div class="action">
-		<hr>
-		<a class="cm-btn cm-btn-warning" href="#go-to-post" data-action>我也要发布预言</a>
-	</div>
-	</template>
-</main>
+			</header>
+
+			<div class="content">
+				<msg-list
+					:list="list"
+					:is-loaded="isLoaded"
+					:is-loading="isLoading"
+					:is-complete="isComplete"
+				/>
+			</div>
+
+			<div class="action">
+				<hr>
+				<router-link class="cm-btn cm-btn-warning" to="/publish">我也要发布预言</router-link>
+			</div>
+		</template>
+	</main>
 </template>
+
+<script lang="ts">
+/// <reference path="../assets/js/type.d.ts" />
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import LoadingBox from '../component/loading-box.vue'
+import MsgList from '../component/msg-list.vue'
+import { blacklistMsg } from '../assets/js/config'
+
+const msg: IMsg = {
+	id: 1,
+	author_addr: 'string',
+	author_name: 'xxx',
+	content: 'xxx',
+	published_at: 123456789,
+	like: 2,
+	shortAddr: 'xxx',
+	publishedTime: '2019-02-02',
+	// hidden: true,
+}
+
+
+@Component({
+	components: { MsgList, LoadingBox },
+})
+export default class all extends Vue {
+	isReady = true
+	isLoaded = true
+	isLoading = false
+	isComplete = false
+	sortType: TSortType = 'time'
+	total: TPlaceholderNumber = '-'
+	list: IMsg[] = []
+	listAllMsg: (IMsg[] | null) = null
+	listLikedMsg: (IMsg[] | null) = null
+
+	created() {
+		this.list = [
+			msg,
+			{ ...msg, id: 2 },
+			{ ...msg, id: 3 },
+		]
+	}
+
+	sortBy(sortType: TSortType) {
+		this.sortType = sortType
+		if (!this.listAllMsg) this.loadAllMsg()
+		if (!this.listLikedMsg) this.loadLikedMsg()
+		this.list = sortType === 'like' ? this.listLikedMsg! : this.listAllMsg!
+	}
+
+	loadAllMsg() {
+		this.isLoading = true
+		this.listAllMsg = [
+			msg,
+			{ ...msg, id: 2 },
+			{ ...msg, id: 3 },
+		]
+		this.isLoading = false
+	}
+
+	loadLikedMsg() {
+		this.isLoading = true
+		this.listLikedMsg = [msg]
+		this.isLoading = false
+	}
+}
+</script>
 
 <style lang="stylus">
 @import "../assets/css/ui.styl"
+
+.sort-box
+	.splitter
+		margin 0 0.5em
+		color $cm-color-symbol
+	//a
+	//	text-decoration underline
+	// selected
+	&.time a.time
+	&.like a.like
+		font-weight bold
+		color inherit
+		cursor text
+		pointer-events none
+		text-decoration none
 
 </style>

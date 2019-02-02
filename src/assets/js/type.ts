@@ -1,4 +1,4 @@
-interface IRawMsg {
+export interface IRawMsg {
 	id: number
 	author_addr: string
 	author_name: string
@@ -7,12 +7,12 @@ interface IRawMsg {
 	like: number
 }
 
-interface IMsg extends IRawMsg{
+export interface IMsg extends IRawMsg{
 	shortAddr: string
 	publishedTime: string
 	hidden?: boolean
 }
 
-type TSortType = 'time' | 'like'
+export type TSortType = 'time' | 'like'
 
-type TPlaceholderNumber = '-' | number
+export type TPlaceholderNumber = '-' | number

@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-/// <reference path="../assets/js/type.d.ts" />
+import { IMsg } from '../assets/js/type'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import UserAvatar from './user-avatar.vue'
 

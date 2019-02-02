@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-/// <reference path="../assets/js/type.d.ts" />
+import { IMsg } from '../assets/js/type'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import MsgListItem from './msg-list-item.vue'
 import LoadingBoxContent from './loading-box-content.vue'

@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-/// <reference path="../assets/js/type.d.ts" />
+import { IMsg, TSortType, TPlaceholderNumber } from '../assets/js/type'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import LoadingBox from '../component/loading-box.vue'
 import MsgList from '../component/msg-list.vue'

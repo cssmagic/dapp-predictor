@@ -81,6 +81,19 @@
 </main>
 </template>
 
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import storageModel from '@/assets/js/storage-model'
+
+@Component
+export default class Help extends Vue {
+	created() {
+		storageModel.suppressGuestTip = 1
+	}
+}
+
+</script>
+
 <style lang="stylus">
 @import "../assets/css/ui.styl"
 #help

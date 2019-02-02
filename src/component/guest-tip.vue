@@ -8,11 +8,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import storageModel from '@/assets/js/storage-model'
 
 @Component
 export default class GuestTip extends Vue {
 	closeMsgBox() {
-		alert('TODO: close')
+		storageModel.suppressGuestTip = 1
 	}
 }
 </script>

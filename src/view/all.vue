@@ -53,7 +53,7 @@ const msg: IMsg = {
 @Component({
 	components: { MsgList, LoadingBox },
 })
-export default class all extends Vue {
+export default class All extends Vue {
 	isReady = true
 	isLoaded = true
 	isLoading = false

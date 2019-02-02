@@ -2,7 +2,7 @@
 <article>
 	<global-header />
 	<global-nav />
-	<guest-tip />
+	<guest-tip v-if="!suppressGuestTip" />
 
 	<router-view />
 	<global-footer />
@@ -15,6 +15,7 @@ import GlobalHeader from './component/global-header.vue'
 import GuestTip from './component/guest-tip.vue'
 import GlobalNav from './component/global-nav.vue'
 import GlobalFooter from './component/global-footer.vue'
+import storageModel from './assets/js/storage-model'
 
 @Component({
 	components: {
@@ -25,6 +26,9 @@ import GlobalFooter from './component/global-footer.vue'
 	},
 })
 export default class App extends Vue {
+	get suppressGuestTip() {
+		return storageModel.suppressGuestTip
+	}
 }
 </script>
 

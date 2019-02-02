@@ -51,7 +51,10 @@ const msg: IMsg = {
 
 
 @Component({
-	components: { MsgList, LoadingBox },
+	components: {
+		MsgList,
+		LoadingBox,
+	},
 })
 export default class All extends Vue {
 	isReady = true
@@ -97,15 +100,14 @@ export default class All extends Vue {
 }
 </script>
 
-<style lang="stylus">
+<style scoped lang="stylus">
 @import "../assets/css/ui.styl"
 
 .sort-box
 	.splitter
 		margin 0 0.5em
 		color $cm-color-symbol
-	//a
-	//	text-decoration underline
+
 	// selected
 	&.time a.time
 	&.like a.like

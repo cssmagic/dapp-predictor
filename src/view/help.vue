@@ -89,7 +89,7 @@ import storageModel from '@/assets/js/storage-model'
 @Component
 export default class Help extends Vue {
 	created() {
-		storageModel.suppressGuestTip = 1
+		storageModel.set('suppressGuestTip', true)
 	}
 }
 

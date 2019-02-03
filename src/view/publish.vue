@@ -52,13 +52,13 @@ import storageModel from '@/assets/js/storage-model'
 
 @Component
 export default class Publish extends Vue {
-	nickname = storageModel.nickname
+	nickname = storageModel.get('nickname')
 	message = ''
 
 	onSubmit() {
 		// save nick name to localStorage
 		const nickname = this.nickname
-		if (nickname) storageModel.nickname = nickname
+		if (nickname) storageModel.set('nickname', nickname)
 
 		if (this.validate()) this.submit()
 

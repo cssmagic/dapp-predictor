@@ -13,7 +13,7 @@ import storageModel from '@/assets/js/storage-model'
 @Component
 export default class GuestTip extends Vue {
 	closeMsgBox() {
-		storageModel.suppressGuestTip = 1
+		storageModel.set('suppressGuestTip', true)
 	}
 }
 </script>

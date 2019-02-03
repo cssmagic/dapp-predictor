@@ -30,7 +30,7 @@ import GlobalFooter from './component/global-footer.vue'
 })
 export default class App extends Vue {
 	get suppressGuestTip() {
-		return storageModel.suppressGuestTip
+		return storageModel.get('suppressGuestTip')
 	}
 }
 </script>

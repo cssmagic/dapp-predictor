@@ -2,7 +2,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import * as storage from '@/assets/js/storage'
 
 interface IStorageData {
-	suppressGuestTip: boolean | 0 | 1
+	suppressGuestTip: boolean
 	nickname: string
 	[key: string]: any
 }
@@ -20,5 +20,15 @@ export default new Vue({
 		nickname(val) {
 			storage.set('nickname', val)
 		},
-	}
+	},
+
+	methods: {
+		get(key: string): any {
+			return this[key]
+		},
+		set(key: string, value: any): void {
+			this[key] = value
+		}
+	},
+
 })

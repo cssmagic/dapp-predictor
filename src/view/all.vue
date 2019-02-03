@@ -31,11 +31,12 @@
 </template>
 
 <script lang="ts">
-import { IMsg, TSortType, TPlaceholderNumber } from '../assets/js/type'
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { IMsg, TSortType, TPlaceholderNumber } from '@/assets/js/type'
+// import { blacklistMsg } from '@/assets/js/config'
+
 import LoadingBox from '../component/loading-box.vue'
 import MsgList from '../component/msg-list.vue'
-import { blacklistMsg } from '../assets/js/config'
 
 const msg: IMsg = {
 	id: 1,

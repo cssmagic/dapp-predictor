@@ -1,5 +1,6 @@
-declare const Nasa: any
+///<reference types="nasa.js"/>
 
+// @ts-ignore
 Nasa.env.set(Nasa.env.TESTNET)
 
 Nasa.contract.set({

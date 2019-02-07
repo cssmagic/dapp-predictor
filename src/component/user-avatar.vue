@@ -15,7 +15,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class UserAvatar extends Vue {
 	@Prop({
 		type: Boolean,
-		default: true,
+		default: false,
 	}) isGuest!: boolean
 	@Prop({
 		type: String,

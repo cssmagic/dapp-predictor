@@ -1,7 +1,7 @@
 <template>
 	<li :data-id="item.id">
 		<div class="inner">
-			<div class="author-box">
+			<div class="author-box" v-if="!isMine">
 				<div class="avatar-wrapper">
 					<user-avatar />
 				</div>
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { IMsg } from '../assets/js/type'
+import { IMsg } from '@/assets/js/type'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import UserAvatar from './user-avatar.vue'
 
@@ -32,8 +32,11 @@ import UserAvatar from './user-avatar.vue'
 	components: { UserAvatar },
 })
 export default class MsgListItem extends Vue {
-	@Prop(Object)
-	item!: IMsg
+	@Prop({
+		type: Boolean,
+		default: false,
+	}) isMine!: boolean
+	@Prop(Object) item!: IMsg
 
 	share() {
 		// todo 需判断：当前预言是自己的还是别人的

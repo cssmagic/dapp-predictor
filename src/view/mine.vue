@@ -17,7 +17,7 @@
 			</div>
 		</template>
 		<template v-if="isKnownUser === true">
-			<loading-box v-if="isLoading"/>
+			<loading-box v-if="isLoading" />
 			<template v-else>
 				<template v-if="!list.length">
 					<div class="cm-info-box cm-text empty-tip">
@@ -32,7 +32,6 @@
 						<msg-list
 							:list="list"
 							:is-loading="isLoading"
-							:is-complete="isComplete"
 							:is-mine="true"
 						/>
 					</div>
@@ -51,6 +50,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IMsg, TPlaceholderNumber } from '@/assets/js/type'
 import storageModel from '@/assets/js/storage-model'
+import { formatMsg } from '@/assets/js/formatter'
 
 import UserBox from '../component/user-box.vue'
 import MsgList from '../component/msg-list.vue'
@@ -67,32 +67,60 @@ export default class Mine extends Vue {
 	isLoading: boolean = true
 	isComplete: boolean = true	// 此列表不分页
 
-	addr: string = ''
 	avatar: string = ''
 	total: TPlaceholderNumber = '-'
 	isKnownUser: boolean | null = null
 	list: IMsg[] = []
 
-	created() {
-		Nasa.user.getAddr()
-			.then((addr: string) => {
-				this.isKnownUser = true
-				this.addr = addr
-				storageModel.set('addr', addr)
-			})
-			.catch((err) => {
-				this.isKnownUser = false
-				console.log(err)
-			})
-
+	get addr() {
+		return storageModel.get('addr')
 	}
-
 	get nickname() {
 		return storageModel.get('nickname')
 	}
 
-	inputAddr() {
+	created() {
+		Nasa.user.getAddr()
+			.then((addr: string) => {
+				storageModel.set('addr', addr)
+			})
+			.catch((err) => {
+				console.error(err)
+			})
+			.then(() => {
+				const addr = this.addr
+				this.isKnownUser = !!addr
+				if (addr) this.load()
+			})
+	}
 
+	inputAddr() {
+		let addr = prompt('请输入您的钱包地址：') || ''
+		addr = addr.trim()
+		if (!addr) {
+			return false
+		} else if (!Nasa.util.isValidAddr(addr)) {
+			alert('抱歉，您输入的地址格式不正确。')
+			return false
+		}
+		storageModel.set('addr', addr)
+		this.isKnownUser = true
+		this.load()
+	}
+
+	load() {
+		Nasa.query('default', 'getMessagesByAuthorAddr', [this.addr, 100, 0])
+			.then(({ execResult }) => {
+				this.isLoading = false
+				const messages: IMsg[] = execResult.messages || []
+				this.list = messages.map(formatMsg)
+				this.total = execResult.total || messages.length
+			})
+			.catch((data) => {
+				this.isLoading = false
+				this.list = []
+				console.error(data)
+			})
 	}
 }
 

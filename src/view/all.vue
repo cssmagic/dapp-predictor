@@ -16,7 +16,6 @@
 			<div class="content">
 				<msg-list
 					:list="list"
-					:is-loaded="isLoaded"
 					:is-loading="isLoading"
 					:is-complete="isComplete"
 				/>
@@ -59,7 +58,6 @@ const msg: IMsg = {
 })
 export default class All extends Vue {
 	isReady = true
-	isLoaded = true
 	isLoading = false
 	isComplete = false
 	sortType: TSortType = 'time'

@@ -1,17 +1,26 @@
 <template>
-	<figure class="avatar"></figure>
+	<figure class="avatar" :class="{ 'avatar-unknown': isGuest }">
+		<img
+			alt="[Avatar]"
+			v-if="avatar"
+			:src="avatar"
+		>
+	</figure>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Avatar extends Vue {
+export default class UserAvatar extends Vue {
+	@Prop({
+		type: Boolean,
+		default: true,
+	}) isGuest!: boolean
 	@Prop({
 		type: String,
-		default: ''
-	})
-	avatar!: string
+		default: '',
+	}) avatar!: string
 }
 </script>
 
@@ -23,6 +32,17 @@ export default class Avatar extends Vue {
 	background-size cover
 	border-radius 100%
 	background-color $cm-color-symbol
-
+	&.avatar-unknown
+		$size = $userBoxAvatarSize
+		line-height $size
+		color white
+		font-size $size * 0.5625	// 64 x 0.5625 = 36
+		font-weight bold
+		text-align center
+		background-image none
+		&::after
+			content '?'
+	img
+		size 100%
 
 </style>

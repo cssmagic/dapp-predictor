@@ -1,6 +1,6 @@
 <template>
 	<ul class="cm-list msg-list">
-		<template v-if="!list.length">
+		<template v-if="!isLoading && !list.length">
 			<li class="empty">
 				（列表为空）
 			</li>
@@ -54,7 +54,7 @@ export default class MsgList extends Vue {
 	}) list!: IMsg[]
 
 	onClickLoadMore() {
-
+		this.$emit('loadMore')
 	}
 
 }
@@ -63,12 +63,28 @@ export default class MsgList extends Vue {
 <style scoped lang="stylus">
 @import "../assets/css/ui.styl"
 
+-item-layout()
+	padding 10px 0
+	line-height 30px
+	text-align center
+
 .msg-list
 	background-color $cm-color-bg
-	li.empty
-		padding 10px 0
-		line-height 30px
-		text-align center
 
+	li.empty
+		-item-layout()
+
+	li.more
+		> .loading-box
+			min-height auto
+			-item-layout()
+
+		> .action
+			a
+				display block
+				-item-layout()
+				&:hover
+					text-decoration none
+					background-color #f6f6f6
 
 </style>

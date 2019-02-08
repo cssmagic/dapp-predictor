@@ -56,13 +56,16 @@ export default class Publish extends Vue {
 	message = ''
 
 	onSubmit() {
+		alert('抱歉，网络故障，发布功能暂时关闭！')
+		return
+
 		// save nick name to localStorage
 		const nickname = this.nickname
 		if (nickname) storageModel.set('nickname', nickname)
 
 		if (this.validate()) this.submit()
-
 	}
+
 	private validate(): boolean {
 		let name = this.nickname
 		let msg = this.message

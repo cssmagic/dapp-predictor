@@ -17,7 +17,10 @@
 			</div>
 		</template>
 		<template v-if="isKnownUser === true">
-			<loading-box v-if="isLoading" />
+			<loading-box
+				class="cm-info-box"
+				v-if="isLoading"
+			/>
 			<template v-else>
 				<template v-if="!list.length">
 					<div class="cm-info-box cm-text empty-tip">

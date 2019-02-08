@@ -14,9 +14,7 @@
 				:is-mine="isMine"
 			></msg-list-item>
 			<li class="more" v-if="!isComplete">
-				<div class="loading" v-show="isLoading">
-					<loading-box-content />
-				</div>
+				<loading-box v-show="isLoading" />
 				<div class="action" v-show="!isLoading">
 					<a href="#" @click.prevent="onClickLoadMore">加载更多</a>
 				</div>
@@ -29,12 +27,12 @@
 import { IMsg } from '@/assets/js/type'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import MsgListItem from './msg-list-item.vue'
-import LoadingBoxContent from './loading-box-content.vue'
+import LoadingBox from './loading-box.vue'
 
 @Component({
 	components: {
 		MsgListItem,
-		LoadingBoxContent,
+		LoadingBox,
 	},
 })
 export default class MsgList extends Vue {

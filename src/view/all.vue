@@ -1,7 +1,7 @@
 <template>
 	<main>
 		<template v-if="!isReady">
-			<loading-box />
+			<loading-box class="cm-info-box" />
 		</template>
 		<template v-else>
 			<header>

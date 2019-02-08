@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-///<reference types="nasa.js"/>
+/// <reference types="nasa.js"/>
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IRawMsg, IMsg, TPlaceholderNumber } from '@/assets/js/type'
 import storageModel from '@/assets/js/storage-model'

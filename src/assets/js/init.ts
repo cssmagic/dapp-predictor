@@ -1,4 +1,4 @@
-///<reference types="nasa.js"/>
+/// <reference types="nasa.js"/>
 
 // @ts-ignore
 Nasa.env.set(Nasa.env.TESTNET)

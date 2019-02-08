@@ -1,7 +1,6 @@
 <template>
-	<main>
+	<main v-if="isKnownUser !== null">
 		<user-box
-			v-if="isKnownUser !== null"
 			:is-guest="isKnownUser === false"
 			:nickname="nickname"
 			:addr="addr"
@@ -51,7 +50,7 @@
 <script lang="ts">
 ///<reference types="nasa.js"/>
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { IMsg, TPlaceholderNumber } from '@/assets/js/type'
+import { IRawMsg, IMsg, TPlaceholderNumber } from '@/assets/js/type'
 import storageModel from '@/assets/js/storage-model'
 import { formatMsg } from '@/assets/js/formatter'
 
@@ -68,11 +67,16 @@ import LoadingBox from '../component/loading-box.vue'
 })
 export default class Mine extends Vue {
 	isLoading: boolean = true
-	isComplete: boolean = true	// 此列表不分页
+	isComplete: boolean = true	// 此列表不分页，最多取前 100 条，因此总是 true
+
+	// 对当前用户的了解程度：
+	// null - 正在判断中，结果待定
+	// true - 知道用户的地址
+	// false - 不知道用户的地址
+	isKnownUser: boolean | null = null
 
 	avatar: string = ''
 	total: TPlaceholderNumber = '-'
-	isKnownUser: boolean | null = null
 	list: IMsg[] = []
 
 	get addr() {
@@ -114,15 +118,16 @@ export default class Mine extends Vue {
 	load() {
 		Nasa.query('default', 'getMessagesByAuthorAddr', [this.addr, 100, 0])
 			.then(({ execResult }) => {
-				this.isLoading = false
-				const messages: IMsg[] = execResult.messages || []
+				const messages: IRawMsg[] = execResult.messages || []
 				this.list = messages.map(formatMsg)
 				this.total = execResult.total || messages.length
 			})
 			.catch((data) => {
-				this.isLoading = false
 				this.list = []
 				console.error(data)
+			})
+			.then(() => {
+				this.isLoading = false
 			})
 	}
 }

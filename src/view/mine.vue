@@ -91,8 +91,8 @@ export default class Mine extends Vue {
 			.then((addr: string) => {
 				storageModel.set('addr', addr)
 			})
-			.catch((err) => {
-				console.error(err)
+			.catch((e: Error) => {
+				console.error(e.message)
 			})
 			.then(() => {
 				const addr = this.addr
@@ -115,16 +115,16 @@ export default class Mine extends Vue {
 		this.load()
 	}
 
-	load() {
+	private load() {
 		Nasa.query('default', 'getMessagesByAuthorAddr', [this.addr, 100, 0])
 			.then(({ execResult }) => {
 				const messages: IRawMsg[] = execResult.messages || []
 				this.list = messages.map(formatMsg)
 				this.total = execResult.total || messages.length
 			})
-			.catch((data) => {
+			.catch((e: Error) => {
+				alert(e.message)
 				this.list = []
-				console.error(data)
 			})
 			.then(() => {
 				this.isLoading = false

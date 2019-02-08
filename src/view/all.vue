@@ -40,19 +40,6 @@ import { blacklistMsg } from '@/assets/js/config'
 import LoadingBox from '../component/loading-box.vue'
 import MsgList from '../component/msg-list.vue'
 
-const msg: IMsg = {
-	id: 1,
-	author_addr: 'string',
-	author_name: 'xxx',
-	content: 'xxx',
-	published_at: 123456789,
-	like: 2,
-	shortAddr: 'xxx',
-	publishedTime: '2019-02-02',
-	// hidden: true,
-}
-
-
 @Component({
 	components: {
 		MsgList,
@@ -88,35 +75,30 @@ export default class All extends Vue {
 		this.list = sortType === 'like' ? this.listLikedMsg! : this.listAllMsg!
 	}
 
-	loadAllMsg() {
+	private loadAllMsg() {
 		this.isLoading = true
 		Nasa.query('default', 'getAllMessages', [this.limit, (this.currentPage - 1) * this.limit])
 			.then(({ execResult }) => {
 				console.log(execResult)
 				const messages: IRawMsg[] = execResult.messages || []
 				const formattedMessages = messages.map(formatMsg)
-				if (!this.listAllMsg) {
-					this.listAllMsg = formattedMessages
-				} else {
-					this.listAllMsg = [...this.listAllMsg, ...formattedMessages]
-				}
-
+				this.listAllMsg = (this.listAllMsg || []).concat(formattedMessages)
 				this.total = execResult.total
 			})
-			.catch((data) => {
-				console.error(data)
+			.catch((e: Error) => {
+				alert(e.message)
 			})
 			.then(() => {
 				if (this.sortType === 'time') {
 					this.isLoading = false
-					this.list = this.listAllMsg
+					this.list = this.listAllMsg!
 				}
 				this.isReady = true
 				this.currentPage++
 			})
 	}
 
-	loadLikedMsg() {
+	private loadLikedMsg() {
 		this.isLoading = true
 		Nasa.query('default', 'getHotMessages', [100])
 			.then(({ execResult }) => {
@@ -124,14 +106,14 @@ export default class All extends Vue {
 				const messages: IRawMsg[] = execResult.messages || []
 				this.listLikedMsg = messages.map(formatMsg)
 			})
-			.catch((data) => {
-				console.error(data)
+			.catch((e: Error) => {
+				alert(e.message)
 				this.listLikedMsg = []
 			})
 			.then(() => {
 				if (this.sortType === 'like') {
 					this.isLoading = false
-					this.list = this.listLikedMsg
+					this.list = this.listLikedMsg!
 				}
 			})
 	}
